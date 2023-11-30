@@ -1,24 +1,25 @@
-/*
+import 'dart:io';
 
 class ServicoModelo {
   String nome;
-  //Criar classe de categoria, enquanto não criar não vai funcionar
-  final CategoriaModelo categoria;
-  DateTime dataValidade;
-  String valor;
-  String estoque;
+  final ServicoModelo categoria;
   String descricao;
+  String valor;
+  String duracao;
 
   ServicoModelo(
       {required this.nome,
       required this.categoria,
-      required this.dataValidade,
+      required this.descricao,
       required this.valor,
-      required this.estoque,
-      required this.descricao});
+      required this.duracao});
 
   @override
   int get hashCode => categoria.hashCode;
+
+  File? get imagem => null;
+
+  get categoriaServico => null;
 
   @override
   bool operator ==(Object other) {
@@ -28,4 +29,4 @@ class ServicoModelo {
     other as ServicoModelo;
     return categoria == other.categoria;
   }
-} */
+}

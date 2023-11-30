@@ -8,8 +8,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 
-
-
 class ProdutoForm extends StatefulWidget {
   final ProdutoModelo? produtoSelecionado;
 
@@ -33,9 +31,8 @@ class _ProdutoFormState extends State<ProdutoForm> {
   String descricao = '';
 
   File? savedImagePath;
-  
+
   CategoriaModelo? categoriaSelecionada;
-  
 
   @override
   void initState() {
@@ -64,28 +61,27 @@ class _ProdutoFormState extends State<ProdutoForm> {
       });
     }
   }
-  
-  //Função implementada com ajuda do Bard 
+
+  //Função implementada com ajuda do Bard
   Future<void> _tirarFoto() async {
-  final picker = ImagePicker();
-  final imageFile = await picker.pickImage(source: ImageSource.camera);
+    final picker = ImagePicker();
+    final imageFile = await picker.pickImage(source: ImageSource.camera);
 
-  if (imageFile == null) {
-    // O usuário cancelou a operação
-    return;
+    if (imageFile == null) {
+      // O usuário cancelou a operação
+      return;
+    }
+    // Processar o arquivo de imagem capturado
+
+    final image = File(imageFile.path);
+    // Faça algo com a imagem, como exibí-la na interface ou salvá-la no armazenamento.
+
+    // Obtenha o diretório de documentos do aplicativo para salvar a imagem.
+    final appDocumentDirectory = await getApplicationDocumentsDirectory();
+    final imageFileName = '${DateTime.now()}.jpg';
+    savedImagePath =
+        await image.copy('${appDocumentDirectory.path}/$imageFileName');
   }
-  // Processar o arquivo de imagem capturado
-
-
-  final image = File(imageFile.path);
-  // Faça algo com a imagem, como exibí-la na interface ou salvá-la no armazenamento.
-
-  // Obtenha o diretório de documentos do aplicativo para salvar a imagem.
-  final appDocumentDirectory = await getApplicationDocumentsDirectory();
-  final imageFileName = '${DateTime.now()}.jpg';
-  savedImagePath = await image.copy('${appDocumentDirectory.path}/$imageFileName');
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +101,7 @@ class _ProdutoFormState extends State<ProdutoForm> {
 //     trailing: Text('\$${produto.valor.toStringAsFixed(2)}'),
 //   ),
 // );
-    
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -163,15 +159,15 @@ class _ProdutoFormState extends State<ProdutoForm> {
                   const SizedBox(height: 20),
                   DropdownButton<CategoriaModelo>(
                     value: categoriaSelecionada,
-                    items: categoriaController.categorias.map((CategoriaModelo categoria) {
+                    items: categoriaController.categorias
+                        .map((CategoriaModelo categoria) {
                       return DropdownMenuItem<CategoriaModelo>(
-                      value: categoria,
-                      child: Text(categoria.nome),
+                        value: categoria,
+                        child: Text(categoria.nome),
                       );
-                    })
-                     .toList(),
-                       onChanged: (CategoriaModelo? novaCategoria) {
-                        setState(() {
+                    }).toList(),
+                    onChanged: (CategoriaModelo? novaCategoria) {
+                      setState(() {
                         categoriaSelecionada = novaCategoria;
                       });
                     },
@@ -212,13 +208,13 @@ class _ProdutoFormState extends State<ProdutoForm> {
                       descricao = value!;
                     },
                   ),
-                 ElevatedButton(
+                  ElevatedButton(
                     onPressed: () {
-                    _tirarFoto();
-                   },
+                      _tirarFoto();
+                    },
                     child: const Text('Escolher Imagem'),
-                  ),    
-                const SizedBox(height: 20),
+                  ),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -243,6 +239,6 @@ class _ProdutoFormState extends State<ProdutoForm> {
       ),
     );
   }
-  
+
   getApplicationDocumentsDirectory() {}
 }

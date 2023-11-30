@@ -1,5 +1,5 @@
-/*import 'dart:collection';
-import 'package:crud_app/servicos/servico_modelo.dart';
+import 'dart:collection';
+import 'package:crud_app/servicos_OUT/servico_modelo.dart';
 import 'package:flutter/material.dart';
 
 class ServicoController extends ChangeNotifier {
@@ -12,16 +12,15 @@ class ServicoController extends ChangeNotifier {
     notifyListeners();
   }
 
-    void alterar(ServicoModelo servico) {
-    _servicos.update(servico.nome, (existingServico){
+  void alterar(ServicoModelo servico) {
+    _servicos.update(servico.nome, (existingServico) {
       return servico;
     });
     notifyListeners();
   }
 
-
   void excluir(ServicoModelo servicos) {
     _servicos.remove(servicos.nome);
     notifyListeners();
   }
-} */
+}

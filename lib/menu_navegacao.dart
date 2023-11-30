@@ -3,6 +3,7 @@ import 'package:crud_app/navegacao_controller.dart';
 import 'package:crud_app/pessoa/pessoas_lista.dart';
 import 'package:crud_app/produtos/produtos_lista.dart';
 import 'package:crud_app/rotas.dart';
+import 'package:crud_app/servicos_OUT/servico_lista.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,7 @@ class _MenuNavegacaoState extends State<MenuNavegacao> {
           0: PessoasLista(),
           1: ProdutosLista(),
           2: CategoriaLista(),
+          3: ServicosLista(),
         }[index] ??
         PessoasLista();
   }
@@ -58,6 +60,10 @@ class _MenuNavegacaoState extends State<MenuNavegacao> {
           icon: Icon(Icons.store_outlined),
           label: 'Categorias',
         ),
+        NavigationDestination(
+            selectedIcon: Icon(Icons.store),
+            icon: Icon(Icons.store_outlined),
+            label: 'Servicos'),
       ],
     );
   }

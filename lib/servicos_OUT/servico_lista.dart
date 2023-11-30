@@ -1,17 +1,16 @@
-/* import 'package:crud_app/menu_navegacao.dart';
+import 'package:crud_app/menu_navegacao.dart';
 import 'package:crud_app/rotas.dart';
-import 'package:crud_app/servicos/servico_controller.dart';
-import 'package:crud_app/servicos/servico_form.dart';
+import 'package:crud_app/servicos_OUT/servico_controller.dart';
+import 'package:crud_app/servicos_OUT/servico_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProdutosLista extends StatelessWidget {
-  const ProdutosLista({super.key});
-  
-  
+class ServicosLista extends StatelessWidget {
+  const ServicosLista({super.key});
+
   @override
   Widget build(BuildContext context) {
-    var produtoController = Provider.of<ServicoController>(context);
+    var servicoController = Provider.of<ServicoController>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -19,9 +18,9 @@ class ProdutosLista extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 213, 228, 11),
           centerTitle: true,
-          title: const Text('Cadastro de Produtos'),
+          title: const Text('Cadastro de Serviços'),
         ),
-       floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
           onPressed: () {
             //aqui definimos a rota da tela a ser aberta
             Navigator.pushNamed(context, Rotas.SERVICOS_ADD);
@@ -31,9 +30,9 @@ class ProdutosLista extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(30.0),
           child: ListView.builder(
-            itemCount: ServicoController.servico.length,
+            itemCount: servicoController.servico.length,
             itemBuilder: (BuildContext context, int index) {
-              final produto = servicoController.servico[index];
+              final servico = servicoController.servico[index];
               return Card(
                 margin: const EdgeInsets.all(8),
                 // incluir um botão para excluir neste card
@@ -50,7 +49,7 @@ class ProdutosLista extends StatelessWidget {
                             TextButton(
                               child: const Text('Confirmar'),
                               onPressed: () {
-                                produtoController.excluir(produto);
+                                servicoController.excluir(servico);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -66,12 +65,11 @@ class ProdutosLista extends StatelessWidget {
                     },
                     icon: const Icon(Icons.delete),
                   ),
-                  
-                  title: Text('Nome: ${produto.nome}'),
-                  subtitle: Text('categoria: ${produto.categoria}'),
+                  title: Text('Nome: ${servico.nome}'),
+                  subtitle: Text('Categoria: ${servico.categoria}'),
                   trailing: IconButton(
                     onPressed: () {
-                      // Navegar para a tela de edição com o produto selecionado
+                      // Navegar para a tela de edição com o serviço selecionado
                       Navigator.push(
                         context,
                         MaterialPageRoute<void>(
@@ -88,10 +86,9 @@ class ProdutosLista extends StatelessWidget {
                 ),
               );
             },
-            
           ),
         ),
       ),
     );
   }
-}*/
+}
